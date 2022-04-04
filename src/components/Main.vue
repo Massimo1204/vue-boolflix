@@ -1,6 +1,6 @@
 <template>
   <main>
-    <showCard :show="movies" />
+    <showCard :movies="movies" :tvSeries="tvSeries" />
   </main>
 </template>
 
@@ -19,13 +19,23 @@ export default {
       moviesApiUrl:
         "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
       flagsApiUrl: "https://countryflagsapi.com/png/",
+      tvSeriesApiUrl:
+        "https://api.themoviedb.org/3/search/tv?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
       movies: null,
+      tvSeries:null,
     };
   },
   methods: {
-    getApiMovies(url, toSearch) {
+    getApiItems(url, toSearch, checker) {
       axios.get(url + toSearch).then((item) => {
-        this.movies = item.data.results;
+        if(checker){
+          this.movies = item.data.results;
+          console.log(this.movies);
+        }
+        else {
+          this.tvSeries = item.data.results;
+          console.log(this.tvSeries);
+        }
       })
       .catch(error => {
         console.error(error);
@@ -34,7 +44,8 @@ export default {
   },
   watch: {
     toSearch(toSearch) {
-      this.getApiMovies(this.moviesApiUrl, toSearch);
+      this.getApiItems(this.moviesApiUrl, toSearch, true);
+      this.getApiItems(this.tvSeriesApiUrl, toSearch, false);
     },
   },
 };
