@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <indexHeader :copySearch="search" />
+    <indexMain @toSearch="toSearch" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import indexMain from "./components/Main.vue";
+import indexHeader from "./components/Header.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    indexMain,
+    indexHeader,
+  },
+  data: function () {
+    return {
+      toSearch: "",
+    };
+  },
+  methods: {
+    copySearch(search) {
+      this.toSearch = search;
+    },
   },
 };
 </script>
 
 <style lang="scss">
+@import "./style/style.scss";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
