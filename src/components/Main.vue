@@ -1,6 +1,8 @@
 <template>
   <main>
-    {{ movies }}
+    <div>
+      {{ items }}
+    </div>
   </main>
 </template>
 
@@ -9,23 +11,25 @@ import axios from "axios";
 
 export default {
   name: "indexMain",
-  props: ["toSearch"],
+  props: { toSearch: String },
   data: function () {
     return {
       apiUrl:
-        "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=back",
-      movies: null,
+        "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
+      items: null,
     };
   },
   methods: {
-    getApiItems(url) {
-      axios.get(url).then((item) => {
-        this.movies = item.data.results;
+    getApiItems(url, toSearch) {
+      axios.get(url + toSearch).then((item) => {
+        this.items = item.data.results;
       });
     },
   },
-  created: function () {
-    this.getApiItems(this.apiUrl);
+  watch: {
+    toSearch(toSearch) {
+      this.getApiItems(this.apiUrl, toSearch);
+    },
   },
 };
 </script>
