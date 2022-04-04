@@ -13,16 +13,19 @@ export default {
   data: function () {
     return {
       apiUrl:
-        "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
+        "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=back",
       movies: null,
     };
   },
   methods: {
     getApiItems(url) {
       axios.get(url).then((item) => {
-        this.movies = item.data.result;
+        this.movies = item.data.results;
       });
     },
+  },
+  created: function () {
+    this.getApiItems(this.apiUrl);
   },
 };
 </script>

@@ -5,7 +5,7 @@
         type="text"
         placeholder="search"
         v-model="toSearch"
-        @keyup.enter="$emit('copySearch', toSearch)"
+        @keyup.enter="$emit('sendSearch', toSearch)"
       />
     </div>
   </header>
@@ -14,6 +14,11 @@
 <script>
 export default {
   name: "indexHeader",
+  data: function () {
+    return {
+      toSearch: "",
+    };
+  },
 };
 </script>
 

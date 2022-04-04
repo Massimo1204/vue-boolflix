@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <indexHeader :copySearch="search" />
+    <indexHeader :sendSearch="copySearch" />
     <indexMain @toSearch="toSearch" />
   </div>
 </template>
