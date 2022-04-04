@@ -32,6 +32,5 @@ export default {
 @import "./style/style.scss";
 
 #app {
-  text-align: center;
 }
 </style>

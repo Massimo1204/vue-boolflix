@@ -1,34 +1,40 @@
 <template>
   <main>
-    <div>
-      {{ items }}
-    </div>
+    <showCard :show="movies" />
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import showCard from "./Card.vue";
 
 export default {
   name: "indexMain",
   props: { toSearch: String },
+  components: {
+    showCard,
+  },
   data: function () {
     return {
-      apiUrl:
+      moviesApiUrl:
         "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
-      items: null,
+      flagsApiUrl: "https://countryflagsapi.com/png/",
+      movies: null,
     };
   },
   methods: {
-    getApiItems(url, toSearch) {
+    getApiMovies(url, toSearch) {
       axios.get(url + toSearch).then((item) => {
-        this.items = item.data.results;
+        this.movies = item.data.results;
+      })
+      .catch(error => {
+        console.error(error);
       });
     },
   },
   watch: {
     toSearch(toSearch) {
-      this.getApiItems(this.apiUrl, toSearch);
+      this.getApiMovies(this.moviesApiUrl, toSearch);
     },
   },
 };
