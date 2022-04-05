@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-start flex-wrap">
     <div
       class="my-card"
       v-for="(element, index) in tvSeries"
@@ -25,10 +25,13 @@
       </div>
       <div v-else>
         <img
-          class="img-fluid"
+          v-if="element.poster_path"
           :src="apiImgUrl + element.poster_path"
           :alt="element.name"
         />
+        <div v-else>
+          <h3>{{ element.name }}</h3>
+        </div>
       </div>
     </div>
   </div>

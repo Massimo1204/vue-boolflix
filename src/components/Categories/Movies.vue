@@ -25,10 +25,13 @@
       </div>
       <div v-else>
         <img
-          class="img-fluid"
+          v-if="element.poster_path"
           :src="apiImgUrl + element.poster_path"
           :alt="element.title"
         />
+        <div v-else>
+          <h3>{{ element.title }}</h3>
+        </div>
       </div>
     </div>
   </div>

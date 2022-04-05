@@ -7,8 +7,9 @@
     :halfStar="halfStar"
     :langToCountry="langToCountry"
     />
+    <h1>Tv Series</h1>
     <cardTvSeries
-    :tvseries="tvSeries"
+    :tvSeries="tvSeries"
     :apiImgUrl="apiImgUrl"
     :rankingStars="rankingStars"
     :halfStar="halfStar"
