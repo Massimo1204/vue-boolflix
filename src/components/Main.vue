@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="bg-dark">
     <showCard :movies="movies" :tvSeries="tvSeries" />
   </main>
 </template>
@@ -52,4 +52,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+main {
+  min-height: calc(100vh - 72px);
+}
+</style>

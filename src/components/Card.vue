@@ -1,17 +1,34 @@
 <template>
   <div class="d-flex flex-wrap justify-content-between">
-    <div class="card" v-for="(element, index) in movies" :key="index">
-      <h1>{{ element.title }}</h1>
-      <h1>{{ element.original_title }}</h1>
-      <country-flag :country="langToCountry(element.original_language)" />
-      <h2>{{ element.vote_average }}</h2>
+    <div class="my-card" v-for="(element, index) in movies" :key="index" @mouseover="toShowId=element.id" @mouseleave="toShowId = null">
+      <div v-if="toShowId==element.id">
+        <h4>{{ element.title }}</h4>
+        <h4>{{ element.original_title }}</h4>
+        <country-flag :country="langToCountry(element.original_language)" />
+        <h2>{{ element.vote_average }}</h2>
+      </div>
+      <div v-else>
+        <img
+          class="img-fluid"
+          :src="apiUrl + element.poster_path" 
+          :alt="element.title + ' cover'" 
+        />
+      </div>
     </div>
-    <h1>serie tv</h1>
-    <div class="card" v-for="(element, index) in tvSeries" :key="index+1*3.14">
-      <h1>{{ element.name }}</h1>
-      <h1>{{ element.original_name }}</h1>
-      <country-flag :country="langToCountry(element.original_language)" />
-      <h2>{{ element.vote_average }}</h2>
+    <div class="my-card" v-for="(element, index) in tvSeries" :key="index+1*3.14" @mouseover="toShowId=element.id" @mouseleave="toShowId = null">
+      <div v-if="toShowId==element.id">
+        <h4>{{ element.name }}</h4>
+        <h4>{{ element.original_name }}</h4>
+        <country-flag :country="langToCountry(element.original_language)" />
+        <h2>{{ element.vote_average }}</h2>
+      </div>
+      <div v-else>
+        <img
+          class="img-fluid"
+          :src="apiUrl + element.poster_path" 
+          :alt="element.title + ' cover'" 
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +40,13 @@ export default {
   props: ["movies", "tvSeries"],
   components: {
     CountryFlag,
+  },
+  data: function () {
+    return {
+      apiUrl: "https://image.tmdb.org/t/p/w500",
+      toShow: false,
+      toShowId: null,
+    }
   },
   methods: {
     langToCountry(lang) {
@@ -79,4 +103,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+div {
+  div.my-card {
+    width: 200px;
+    height: 450px;
+  }
+}
+</style>
