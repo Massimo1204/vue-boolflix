@@ -5,12 +5,15 @@
         <h4>{{ element.title }}</h4>
         <h4>{{ element.original_title }}</h4>
         <country-flag :country="langToCountry(element.original_language)" />
-        <h2>{{ element.vote_average }}</h2>
+        <div>
+          <i class="fas fa-star" v-for="n in rankingStars(element.vote_average)" :key="n"></i>
+          <i class="fas fa-star-half" v-if="halfStar(element.vote_average)==true"></i>
+        </div>
       </div>
       <div v-else>
         <img
           class="img-fluid"
-          :src="apiUrl + element.poster_path" 
+          :src="apiImgUrl + element.poster_path" 
           :alt="element.title + ' cover'" 
         />
       </div>
@@ -20,13 +23,16 @@
         <h4>{{ element.name }}</h4>
         <h4>{{ element.original_name }}</h4>
         <country-flag :country="langToCountry(element.original_language)" />
-        <h2>{{ element.vote_average }}</h2>
+        <div>
+          <i class="fas fa-star" v-for="n in rankingStars(element.vote_average)" :key="n"></i>
+          <i class="fas fa-star-half" v-if="halfStar(element.vote_average)==true"></i>
+        </div>
       </div>
       <div v-else>
         <img
           class="img-fluid"
-          :src="apiUrl + element.poster_path" 
-          :alt="element.title + ' cover'" 
+          :src="apiImgUrl + element.poster_path" 
+          :alt="element.name" 
         />
       </div>
     </div>
@@ -43,12 +49,25 @@ export default {
   },
   data: function () {
     return {
-      apiUrl: "https://image.tmdb.org/t/p/w500",
-      toShow: false,
+      apiImgUrl: "https://image.tmdb.org/t/p/w500",
       toShowId: null,
     }
   },
   methods: {
+    rankingStars(vote) {
+      vote = Math.ceil(vote);
+      if(vote % 2 == 0){
+        return vote/2;
+      }
+      else{
+        return Math.floor(vote/2);
+      }
+    },
+    halfStar(vote) {
+      if(Math.ceil(vote) % 2 != 0){
+        return true;
+      }
+    },
     langToCountry(lang) {
       if(lang == 'en') {
         return 'gb';
@@ -99,6 +118,9 @@ export default {
         return lang;
       } 
     },
+  },
+  computed: {
+
   },
 };
 </script>
