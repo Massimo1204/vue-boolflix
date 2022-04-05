@@ -1,5 +1,7 @@
 <template>
-  <header class="d-flex justify-content-between align-items-center p-2 bg-dark border-bottom border-secondary">
+  <header
+    class="d-flex justify-content-between align-items-center p-2 bg-dark border-bottom border-secondary"
+  >
     <div>
       <h1 class="text-uppercase text-danger">Boolflix</h1>
     </div>

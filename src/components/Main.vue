@@ -6,7 +6,7 @@
 
 <script>
 import axios from "axios";
-import showCard from "./Card.vue";
+import showCard from "./Cards.vue";
 
 export default {
   name: "indexMain",
@@ -16,36 +16,41 @@ export default {
   },
   data: function () {
     return {
-      moviesApiUrl:
-        "https://api.themoviedb.org/3/search/movie?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
-      flagsApiUrl: "https://countryflagsapi.com/png/",
-      tvSeriesApiUrl:
-        "https://api.themoviedb.org/3/search/tv?api_key=09c2419c715c8b3c902f24ec9586895f&query=",
+      apiUrl: "https://api.themoviedb.org/3/search/",
+      ApiKeyUrl:
+        "?api_key=09c2419c715c8b3c902f24ec9586895f&language=it_IT&query=",
       movies: null,
-      tvSeries:null,
+      tvSeries: null,
     };
   },
   methods: {
-    getApiItems(url, toSearch, checker) {
-      axios.get(url + toSearch).then((item) => {
-        if(checker){
+    getApiMovies(toSearch) {
+      axios
+        .get(this.apiUrl + "movie" + this.ApiKeyUrl + toSearch)
+        .then((item) => {
           this.movies = item.data.results;
           console.log(this.movies);
-        }
-        else {
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getApiTvSeries(toSearch) {
+      axios
+        .get(this.apiUrl + "tv" + this.ApiKeyUrl + toSearch)
+        .then((item) => {
           this.tvSeries = item.data.results;
           console.log(this.tvSeries);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   watch: {
     toSearch(toSearch) {
-      this.getApiItems(this.moviesApiUrl, toSearch, true);
-      this.getApiItems(this.tvSeriesApiUrl, toSearch, false);
+      this.getApiMovies(toSearch);
+      this.getApiTvSeries(toSearch);
     },
   },
 };
