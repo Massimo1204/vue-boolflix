@@ -1,4 +1,8 @@
 <template>
+<div>
+  <div>
+    <h1 class="ms-3 pt-3 mb-0">Series</h1>
+  </div>
   <div class="d-flex justify-content-start flex-wrap">
     <div
       class="my-card"
@@ -8,7 +12,7 @@
       @mouseleave="toShowId = null"
     >
       <div v-if="toShowId == element.id">
-        <h6 class="card-title">
+        <h6 class="card-title mt-1">
           Titolo:
           <span>{{ element.name }}</span>
         </h6>
@@ -20,12 +24,12 @@
           <h6 class="card-rating">
             Rating:
             <i
-              class="fas fa-star"
+              class="fas fa-star text-warning"
               v-for="n in rankingStars(element.vote_average)"
               :key="n"
             ></i>
             <i
-              class="fas fa-star-half"
+              class="fas fa-star-half text-warning"
               v-if="halfStar(element.vote_average) == true"
             ></i>
           </h6>
@@ -53,12 +57,20 @@
       </div>
     </div>
   </div>
+</div>
+  
 </template>
 
 <script>
 export default {
   name: "cardTvSeries",
-  props: ["tvSeries", "apiImgUrl", "rankingStars", "halfStar", "langToCountry"],
+  props: [
+    "tvSeries",
+    "apiImgUrl",
+    "rankingStars",
+    "halfStar",
+    "langToCountry",
+    ],
   data: function () {
     return {
       toShowId: null,

@@ -1,14 +1,15 @@
 <template>
   <div>
     <cardMovies
+      v-if="movies"
       :movies="movies"
       :apiImgUrl="apiImgUrl"
       :rankingStars="rankingStars"
       :halfStar="halfStar"
       :langToCountry="langToCountry"
     />
-    <h1 class="ms-3 mt-3" v-if="tvSeries">Tv Series</h1>
     <cardTvSeries
+      v-if="tvSeries"
       :tvSeries="tvSeries"
       :apiImgUrl="apiImgUrl"
       :rankingStars="rankingStars"

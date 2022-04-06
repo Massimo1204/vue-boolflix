@@ -1,11 +1,11 @@
 <template>
   <header
-    class="d-flex justify-content-between align-items-center p-2 bg-dark border-bottom border-secondary"
+    class="d-flex justify-content-between align-items-center px-3 py-2 bg-dark border-bottom border-secondary"
   >
     <div>
-      <h1 class="text-uppercase text-danger">Boolflix</h1>
+      <h1 class="text-uppercase">Boolflix</h1>
     </div>
-    <div class="me-4">
+    <div class="me-3">
       <i class="fas fa-magnifying-glass me-2 text-light"></i>
       <input
         class="rounded-2"
@@ -29,4 +29,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import "../style/style.scss";
+
+header {
+  div {
+    h1 {
+      color: $logo-red;
+    }
+  }
+}
+
+</style>
