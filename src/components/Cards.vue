@@ -1,19 +1,19 @@
 <template>
   <div>
     <cardMovies
-    :movies="movies"
-    :apiImgUrl="apiImgUrl"
-    :rankingStars="rankingStars"
-    :halfStar="halfStar"
-    :langToCountry="langToCountry"
+      :movies="movies"
+      :apiImgUrl="apiImgUrl"
+      :rankingStars="rankingStars"
+      :halfStar="halfStar"
+      :langToCountry="langToCountry"
     />
-    <h1>Tv Series</h1>
+    <h1 class="ms-3 mt-3" v-if="tvSeries">Tv Series</h1>
     <cardTvSeries
-    :tvSeries="tvSeries"
-    :apiImgUrl="apiImgUrl"
-    :rankingStars="rankingStars"
-    :halfStar="halfStar"
-    :langToCountry="langToCountry"
+      :tvSeries="tvSeries"
+      :apiImgUrl="apiImgUrl"
+      :rankingStars="rankingStars"
+      :halfStar="halfStar"
+      :langToCountry="langToCountry"
     />
   </div>
 </template>

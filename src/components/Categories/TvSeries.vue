@@ -8,20 +8,38 @@
       @mouseleave="toShowId = null"
     >
       <div v-if="toShowId == element.id">
-        <h4>{{ element.name }}</h4>
-        <h4>{{ element.original_name }}</h4>
-        <country-flag :country="langToCountry(element.original_language)" />
+        <h6 class="card-title">
+          Titolo:
+          <span>{{ element.name }}</span>
+        </h6>
+        <h6 class="card-title">
+          Titolo originale:
+          <span>{{ element.original_name }}</span>
+        </h6>
         <div>
-          <i
-            class="fas fa-star"
-            v-for="n in rankingStars(element.vote_average)"
-            :key="n"
-          ></i>
-          <i
-            class="fas fa-star-half"
-            v-if="halfStar(element.vote_average) == true"
-          ></i>
+          <h6 class="card-rating">
+            Rating:
+            <i
+              class="fas fa-star"
+              v-for="n in rankingStars(element.vote_average)"
+              :key="n"
+            ></i>
+            <i
+              class="fas fa-star-half"
+              v-if="halfStar(element.vote_average) == true"
+            ></i>
+          </h6>
         </div>
+        <div>
+          <h6 class="card-language">
+            Language:
+            <country-flag :country="langToCountry(element.original_language)" />
+          </h6>
+        </div>
+        <h6 class="card-overview">
+          Overview:
+          <span>{{ element.overview }}</span>
+        </h6>
       </div>
       <div v-else>
         <img
@@ -44,7 +62,7 @@ export default {
   data: function () {
     return {
       toShowId: null,
-    }
+    };
   },
 };
 </script>

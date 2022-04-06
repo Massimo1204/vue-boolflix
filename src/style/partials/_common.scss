@@ -9,3 +9,28 @@
     height: 300px;
     object-fit: cover;
 }
+
+.my-card h6{
+    margin-bottom: 0.4rem;
+}
+
+.my-card .card-title {
+    font-size: 0.9rem;
+}
+
+.my-card h6 span{
+    font-size: 0.8rem;
+}
+
+.my-card h6.card-overview{
+    max-height: 150px;
+    overflow: hidden;
+}
+
+.my-card h6.card-rating {
+    margin: 0;
+}
+
+.my-card h6.card-language .flag{
+    margin: 0 -0.9em -1.1em -0.7em;
+}
