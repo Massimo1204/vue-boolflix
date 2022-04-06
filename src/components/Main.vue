@@ -1,6 +1,11 @@
 <template>
   <main class="bg-dark">
-    <showCard :movies="movies" :tvSeries="tvSeries" />
+    <showCard
+      :movies="movies"
+      :tvSeries="tvSeries"
+      :cast="cast"
+      @getMovieId="getApiCast"
+    />
   </main>
 </template>
 
@@ -16,17 +21,17 @@ export default {
   },
   data: function () {
     return {
-      apiUrl: "https://api.themoviedb.org/3/search/",
-      ApiKeyUrl:
-        "?api_key=09c2419c715c8b3c902f24ec9586895f&language=it_IT&query=",
+      apiUrl: "https://api.themoviedb.org/3/",
+      ApiKeyUrl: "?api_key=09c2419c715c8b3c902f24ec9586895f&language=it_IT",
       movies: null,
       tvSeries: null,
+      cast: null,
     };
   },
   methods: {
     getApiMovies(toSearch) {
       axios
-        .get(this.apiUrl + "movie" + this.ApiKeyUrl + toSearch)
+        .get(this.apiUrl + "search/movie" + this.ApiKeyUrl + toSearch)
         .then((item) => {
           this.movies = item.data.results;
           console.log(this.movies);
@@ -37,10 +42,20 @@ export default {
     },
     getApiTvSeries(toSearch) {
       axios
-        .get(this.apiUrl + "tv" + this.ApiKeyUrl + toSearch)
+        .get(this.apiUrl + "search/tv" + this.ApiKeyUrl + toSearch)
         .then((item) => {
           this.tvSeries = item.data.results;
           console.log(this.tvSeries);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getApiCast(id) {
+      axios
+        .get(this.apiUrl + id + this.ApiKeyUrl)
+        .then((item) => {
+          this.cast = item.data.cast;
         })
         .catch((error) => {
           console.error(error);

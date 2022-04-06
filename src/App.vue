@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     copySearch(search) {
-      this.toSearch = search;
+      this.toSearch = "&query=" + search;
     },
   },
 };

@@ -7,6 +7,8 @@
       :rankingStars="rankingStars"
       :halfStar="halfStar"
       :langToCountry="langToCountry"
+      :cast="cast"
+      @sendMovieId="genMovieId"
     />
     <cardTvSeries
       v-if="tvSeries"
@@ -25,7 +27,7 @@ import cardTvSeries from "./Categories/TvSeries.vue";
 
 export default {
   name: "mainCard",
-  props: ["movies", "tvSeries"],
+  props: ["movies", "tvSeries", "cast"],
   components: {
     cardMovies,
     cardTvSeries,
@@ -33,9 +35,14 @@ export default {
   data: function () {
     return {
       apiImgUrl: "https://image.tmdb.org/t/p/w500",
+      movieId: null,
     };
   },
   methods: {
+    genMovieId(id) {
+      this.movieId = "movie/" + id + "/credits";
+      this.$emit("getMovieId", this.movieId);
+    },
     rankingStars(vote) {
       vote = Math.ceil(vote);
       if (vote % 2 == 0) {
