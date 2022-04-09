@@ -2,7 +2,7 @@
 .my-card {
     width: 200px;
     height: 300px;
-    margin: 1rem 0 0 0.7rem;
+    margin: 0.5rem 0.5rem;
 }
 
 .my-card img{
@@ -16,12 +16,9 @@
     font-weight: 700;
 }
 
+.my-card .card-title span,
 .my-card .card-title {
     font-size: 1rem;
-}
-
-.my-card .card-title span {
-    font-size: 0.9rem;
 }
 
 .my-card h6 span{
@@ -32,6 +29,10 @@
 .my-card h6.cast span{
     color: $info-lightblue;
 } 
+
+.my-card h6.genres span{
+    color: $info-yellow;
+}
 
 .my-card h6.card-overview{
     overflow-y: scroll;

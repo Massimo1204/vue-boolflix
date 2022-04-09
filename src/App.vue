@@ -1,7 +1,21 @@
 <template>
   <div id="app">
-    <indexHeader @sendSearch="copySearch" />
-    <indexMain :toSearch="toSearch" />
+    <indexHeader
+      @sendSearch="copySearch"
+      @sendFilterShow="copyFilterShow"
+      :genreLists="genreLists"
+      @sendMovieGenre="copyMovieGenre"
+      @sendSeriesGenre="copySeriesGenre"
+      @sendReset="copyReset"
+    />
+    <indexMain
+      :toSearch="toSearch"
+      :filterShow="filterShow"
+      @sendGenreLists="copyGenreLists"
+      :filterMovieGenre="filterMovieGenre"
+      :filterSeriesGenre="filterSeriesGenre"
+      :isReset="isReset"
+    />
   </div>
 </template>
 
@@ -18,11 +32,31 @@ export default {
   data: function () {
     return {
       toSearch: "",
+      filterShow: "",
+      genreLists: null,
+      filterMovieGenre: "all",
+      filterSeriesGenre: "all",
+      isReset: null,
     };
   },
   methods: {
     copySearch(search) {
-      this.toSearch = "&query=" + search;
+      this.toSearch = search.toLowerCase();
+    },
+    copyFilterShow(filterShow) {
+      this.filterShow = filterShow;
+    },
+    copyGenreLists(genres) {
+      this.genreLists = genres;
+    },
+    copyMovieGenre(genre) {
+      this.filterMovieGenre = genre;
+    },
+    copySeriesGenre(genre) {
+      this.filterSeriesGenre = genre;
+    },
+    copyReset(reset) {
+      this.isReset = reset;
     },
   },
 };
