@@ -23,7 +23,7 @@
           >
             <div v-show="toShowId == element.id" ref="cardBack">
               <h6 class="card-title" ref="title">
-                Titolo:
+                Title:
                 <span>{{ getTitle(showIndex, index) }}</span>
               </h6>
               <div>
@@ -115,7 +115,6 @@
 export default {
   name: "showCard",
   props: [
-    "shows",
     "movies",
     "tvSeries",
     "moviesCasts",
@@ -130,6 +129,7 @@ export default {
     return {
       apiImgUrl: "https://image.tmdb.org/t/p/w500",
       toShowId: null,
+      shows: ["movies", "tv series"],
     };
   },
   methods: {

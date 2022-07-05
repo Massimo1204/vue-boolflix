@@ -1,7 +1,6 @@
 <template>
   <main class="bg-dark p-3">
     <showCard
-      :shows="shows"
       :movies="movies"
       :tvSeries="tvSeries"
       :moviesCasts="moviesCasts"
@@ -50,13 +49,13 @@ export default {
   methods: {
     getApiShows(toSearch, type) {
       let category;
-      if (this.isStart) {
+      if (this.isStart || toSearch == "") {
         category = type + "/popular";
       } else {
         category = "search/" + type;
       }
       axios
-        .get(this.apiUrl + category + this.ApiKeyUrl + toSearch)
+        .get(this.apiUrl + category + this.ApiKeyUrl + "&query=" + toSearch)
         .then((item) => {
           if (type == "movie") {
             this.movies = item.data.results;
@@ -130,7 +129,7 @@ export default {
       this.movies = null;
       this.tvSeries = null;
       this.shows.forEach((element) => {
-        this.getApiShows("&query=" + toSearch, element);
+        this.getApiShows(toSearch, element);
       });
     },
     filterShow(filterShow) {
