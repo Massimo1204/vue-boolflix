@@ -9,24 +9,28 @@
       >
         <div>
           <h1
-            class="pt-4 pb-2 ms-2 text-capitalize"
+            class="pt-4 pb-2 ms-1 text-capitalize"
             :class="!isStart ? 'text-center' : ''"
           >
             {{ shows[showIndex] }}
           </h1>
         </div>
         <div
-          class="cards-container d-flex justify-content-start gap-3"
-          :class="isStart ? 'carousel' : 'flex-wrap justify-content-center'"
+          class="cards-container d-flex justify-content-start"
+          :class="
+            isStart ? 'carousel gap-3' : 'flex-wrap justify-content-center'
+          "
         >
           <div
             class="my-card"
-            :class="!isStart ? 'me-1 mb-1' : ''"
+            :class="!isStart ? 'my-card-margin' : ''"
             v-for="(element, index) in show"
             :key="index + shows[showIndex] + element.id"
-            @mouseover="toShowId = element.id"
+            @mouseover="
+              (toShowId = element.id), (displayCarouselButtons = true)
+            "
             @mouseover.once="overviewHeight(showIndex, index)"
-            @mouseleave="toShowId = null"
+            @mouseleave="(toShowId = null), (displayCarouselButtons = false)"
             v-show="toFilter(showIndex, index)"
           >
             <div v-show="toShowId == element.id" class="my-card" ref="cardBack">
@@ -121,6 +125,7 @@
             <div
               v-if="displayCarouselButtons"
               class="previous-button"
+              @mouseover="displayCarouselButtons = true"
               @click="scrollBack(showIndex)"
             >
               <i class="fas fa-chevron-left"></i>
@@ -128,6 +133,7 @@
             <div
               v-if="displayCarouselButtons"
               class="next-button"
+              @mouseover="displayCarouselButtons = true"
               @click="scrollForward(showIndex)"
             >
               <i class="fas fa-chevron-right"></i>
@@ -328,6 +334,7 @@ div.previous-button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 4;
 }
 div.next-button {
   right: 0;

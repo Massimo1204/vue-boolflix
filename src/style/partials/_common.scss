@@ -2,6 +2,8 @@
 .my-card {
     width: 200px;
     height: 300px;
+    cursor: pointer;
+    z-index: 3;
 }
 
 .my-card img{
@@ -62,4 +64,8 @@ border-radius: 10px;
 
 ::-webkit-scrollbar-thumb:hover {
 background: black; 
+}
+
+.my-card-margin {
+    margin: 0 0.5rem 1rem 0.5rem;
 }
