@@ -10,6 +10,7 @@
       :loader="loader"
       :filterMovieGenre="filterMovieGenre"
       :filterSeriesGenre="filterSeriesGenre"
+      :isStart="isStart"
     />
   </main>
 </template>
@@ -171,6 +172,6 @@ export default {
 
 <style scoped lang="scss">
 main {
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 73px);
 }
 </style>

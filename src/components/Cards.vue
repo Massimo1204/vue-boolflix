@@ -2,18 +2,26 @@
   <div>
     <div v-if="joinShows && loader">
       <div
+        class="position-relative"
         v-for="(show, showIndex) in joinShows"
         :key="showIndex"
         v-show="toDisplay[showIndex]"
       >
         <div>
-          <h1 class="pt-4 pb-2 text-center text-capitalize">
+          <h1
+            class="pt-4 pb-2 ms-2 text-capitalize"
+            :class="!isStart ? 'text-center' : ''"
+          >
             {{ shows[showIndex] }}
           </h1>
         </div>
-        <div class="d-flex justify-content-center flex-wrap">
+        <div
+          class="cards-container d-flex justify-content-start gap-3"
+          :class="isStart ? 'carousel' : 'flex-wrap justify-content-center'"
+        >
           <div
             class="my-card"
+            :class="!isStart ? 'me-1 mb-1' : ''"
             v-for="(element, index) in show"
             :key="index + shows[showIndex] + element.id"
             @mouseover="toShowId = element.id"
@@ -21,7 +29,7 @@
             @mouseleave="toShowId = null"
             v-show="toFilter(showIndex, index)"
           >
-            <div v-show="toShowId == element.id" ref="cardBack">
+            <div v-show="toShowId == element.id" class="my-card" ref="cardBack">
               <h6 class="card-title" ref="title">
                 Title:
                 <span>{{ getTitle(showIndex, index) }}</span>
@@ -103,6 +111,29 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="isStart"
+          class="carousel-buttons-container"
+          @mouseover="displayCarouselButtons = true"
+          @mouseleave="displayCarouselButtons = false"
+        >
+          <div class="carousel-buttons-wrapper">
+            <div
+              v-if="displayCarouselButtons"
+              class="previous-button"
+              @click="scrollBack()"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div
+              v-if="displayCarouselButtons"
+              class="next-button"
+              @click="scrollForward()"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -124,12 +155,14 @@ export default {
     "loader",
     "filterMovieGenre",
     "filterSeriesGenre",
+    "isStart",
   ],
   data: function () {
     return {
       apiImgUrl: "https://image.tmdb.org/t/p/w500",
       toShowId: null,
-      shows: ["movies", "tv series"],
+      displayCarouselButtons: null,
+      carousel: null,
     };
   },
   methods: {
@@ -224,6 +257,22 @@ export default {
           return lang;
       }
     },
+    scrollForward() {
+      this.carousel = document.getElementsByClassName("cards-container");
+      this.carousel[0].scrollBy({
+        left: window.innerWidth - 200,
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+    scrollBack() {
+      this.carousel = document.getElementsByClassName("cards-container");
+      this.carousel[0].scrollBy({
+        left: -window.innerWidth + 200,
+        top: 0,
+        behavior: "smooth",
+      });
+    },
   },
   computed: {
     joinShows: function () {
@@ -236,8 +285,54 @@ export default {
     joinCasts: function () {
       return [this.moviesCasts, this.seriesCasts];
     },
+    shows: function () {
+      if (this.isStart) {
+        return ["Popular Movies", "Popular Series"];
+      } else {
+        return ["Movies", "Tv Series"];
+      }
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+div.carousel {
+  width: calc(100vw - 2rem);
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+div.carousel-buttons-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: calc(80px + 0.5rem);
+  right: 0;
+}
+div.carousel-buttons-wrapper {
+  position: relative;
+}
+div.next-button,
+div.previous-button {
+  position: absolute;
+  height: 300px;
+  width: 50px;
+  background-color: rgba($color: #000000, $alpha: 0.25);
+  font-size: 2.2rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+div.next-button {
+  right: 0;
+}
+div.previous-button {
+  left: 0;
+}
+</style>
