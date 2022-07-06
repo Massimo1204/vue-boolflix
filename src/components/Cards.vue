@@ -121,14 +121,14 @@
             <div
               v-if="displayCarouselButtons"
               class="previous-button"
-              @click="scrollBack()"
+              @click="scrollBack(showIndex)"
             >
               <i class="fas fa-chevron-left"></i>
             </div>
             <div
               v-if="displayCarouselButtons"
               class="next-button"
-              @click="scrollForward()"
+              @click="scrollForward(showIndex)"
             >
               <i class="fas fa-chevron-right"></i>
             </div>
@@ -257,17 +257,17 @@ export default {
           return lang;
       }
     },
-    scrollForward() {
+    scrollForward(showIndex) {
       this.carousel = document.getElementsByClassName("cards-container");
-      this.carousel[0].scrollBy({
+      this.carousel[showIndex].scrollBy({
         left: window.innerWidth - 200,
         top: 0,
         behavior: "smooth",
       });
     },
-    scrollBack() {
+    scrollBack(showIndex) {
       this.carousel = document.getElementsByClassName("cards-container");
-      this.carousel[0].scrollBy({
+      this.carousel[showIndex].scrollBy({
         left: -window.innerWidth + 200,
         top: 0,
         behavior: "smooth",
@@ -309,7 +309,7 @@ div.carousel {
 div.carousel-buttons-container {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 300px;
   top: calc(80px + 0.5rem);
   right: 0;
 }
